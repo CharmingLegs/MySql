@@ -1,0 +1,8 @@
+#一、查询编号>3的女神的男朋友信息，如果有则列出详细，如果没有，用null填充
+SELECT A.id, `name`, B.* FROM beauty A LEFT OUTER JOIN boys B ON A.boyfriend_id = B.id WHERE A.id > 3;
+
+#二、查询哪个城市没有部门
+SELECT A.city, B.* FROM locations A LEFT OUTER JOIN departments B ON A.location_id = B.location_id WHERE department_id IS NULL;
+
+#三、查询部门名为SAL或IT的员工信息
+SELECT A.department_id, department_name, B.* FROM departments A LEFT OUTER JOIN employees B ON A.department_id = B.department_id WHERE department_name IN ('SAL','IT');
