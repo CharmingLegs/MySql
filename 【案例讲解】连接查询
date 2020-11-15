@@ -1,0 +1,23 @@
+#1.显示所有员工的姓名，部门号和部门名称。
+SELECT last_name, A.department_id, department_name FROM employees A INNER JOIN departments B ON A.department_id = B.department_id;
+
+#2.查询90号部门员工的job_id和90号部门的location_id
+SELECT job_id, location_id FROM employees A INNER JOIN departments B ON A.department_id = B.department_id WHERE A.department_id = 90;
+
+#3.	选择所有有奖金的员工的last_name , department_name , location_id , city
+SELECT last_name , department_name , B.location_id , city FROM employees A INNER JOIN departments B ON A.department_id = B.department_id INNER JOIN locations C ON B.location_id = C.location_id;
+
+#4.选择city在Toronto工作的员工的last_name , job_id , department_id , department_name
+SELECT last_name, job_id, A.department_id, department_name FROM employees A INNER JOIN departments B ON A.department_id = B.department_id INNER JOIN locations C ON B.location_id = C.location_id  WHERE city = 'Toronto';
+
+#5.查询每个工种、每个部门的部门名、工种名和最低工资
+SELECT department_name, job_title, MIN(salary) FROM employees A INNER JOIN departments B ON A.department_id = B.department_id INNER JOIN jobs C ON A.job_id = C.job_id GROUP BY C.job_title, B.department_name;
+
+#6.查询每个国家下的部门个数大于2的国家编号
+SELECT country_id, COUNT(department_id) FROM departments A INNER JOIN locations B ON A.location_id = B.location_id GROUP BY country_id HAVING COUNT(department_id) > 2;
+
+#7、选择指定员工的姓名，员工号，以及他的管理者的姓名和员工号，结果类似于下面的格式
+employees	Emp#	manager	Mgr#
+kochhar		101	  king	  100
+
+SELECT A.last_name AS employees, A.employee_id AS "Emp#", B.last_name AS manager, B.employee_id "Mgr#" FROM employees A INNER JOIN employees B ON A.employee_id = B.manager_id WHERE A.last_name = 'kochhar';
